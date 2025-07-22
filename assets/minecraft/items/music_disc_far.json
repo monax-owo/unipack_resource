@@ -1,0 +1,19 @@
+{
+  "model": {
+    "type": "select",
+    "property": "custom_model_data",
+    "cases": [
+      {
+        "when": "uni",
+        "model": {
+          "type": "model",
+          "model": "item/gold"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "model",
+      "model": "item/music_disc_far"
+    }
+  }
+}
