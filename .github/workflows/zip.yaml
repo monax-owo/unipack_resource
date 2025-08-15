@@ -26,11 +26,13 @@ jobs:
           zip -r dist/${{steps.env.outputs.filename}} . -x ".*/*" "dist/*" ".gitignore"
 
       - id: sha1
-        run: echo "sha1=$(openssl sha1 ./dist/${{steps.env.outputs.filename}})" >> $GITHUB_OUTPUT
+        run: |
+          echo "sha1=$(openssl sha1 ./dist/${{steps.env.outputs.filename}})" >> $GITHUB_OUTPUT
+          echo $GITHUB_OUTPUT
           
       - name: Release
         uses: softprops/action-gh-release@v2
         if: github.ref_type == 'tag'
         with:
-          body: \`${{steps.sha1.outputs.filename}}\`
+          body: ${{steps.sha1.outputs.sha1}}
           files: dist/*
