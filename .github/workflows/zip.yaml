@@ -18,12 +18,12 @@ jobs:
       - uses: actions/checkout@v5
 
       - id: env
-        run: echo "filename=${prefix}_${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
+        run: echo "filename=${prefix}_${GITHUB_REF_NAME}.zip" >> $GITHUB_OUTPUT
 
       - name: Archive
         run: |
           mkdir dist
-          zip -r dist/${{steps.env.outputs.filename}}.zip . -x ".*/*" "dist/*" ".gitignore"
+          zip -r dist/${{steps.env.outputs.filename}} . -x ".*/*" "dist/*" ".gitignore"
 
       - id: sha1
         run: echo "sha1=$(openssl sha1 ./dist/${{steps.env.outputs.filename}})" >> $GITHUB_OUTPUT
