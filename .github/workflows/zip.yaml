@@ -17,13 +17,20 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
+      - id: env
+        run: echo "filename=${prefix}_${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
+
       - name: Archive
         run: |
           mkdir dist
-          zip -r dist/${prefix}_${GITHUB_REF_NAME}.zip . -x ".*/*" "dist/*" ".gitignore"
+          zip -r dist/${{steps.env.outputs.filename}}.zip . -x ".*/*" "dist/*" ".gitignore"
 
+      - id: sha1
+        run echo "sha1=$(openssl sha1 ./dist/${{steps.env.outputs.filename}})" >> $GITHUB_OUTPUT
+          
       - name: Release
         uses: softprops/action-gh-release@v2
         if: github.ref_type == 'tag'
         with:
+          body: \`${{steps.sha1.outputs.filename}}\`
           files: dist/*
