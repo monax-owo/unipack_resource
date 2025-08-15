@@ -1,0 +1,15 @@
+{
+  "model": {
+    "type": "select",
+    "property": "custom_model_data",
+    "cases": [
+      {
+        "when": "register",
+        "model": {
+          "type": "model",
+          "model": "block/register"
+        }
+      }
+    ]
+  }
+}
