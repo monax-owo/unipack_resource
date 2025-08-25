@@ -26,13 +26,21 @@ jobs:
           zip -r dist/${{steps.env.outputs.filename}} . -x ".*/*" "dist/*" ".gitignore"
 
       - id: sha1
+        working-directory: dist
         run: |
-          echo "sha1=$(sha1sum ./dist/${{steps.env.outputs.filename}})" >> $GITHUB_OUTPUT
+          echo "sha1=$(sha1sum ./${{steps.env.outputs.filename}} | awk '{print $1}')" >> $GITHUB_OUTPUT
           echo $GITHUB_OUTPUT
-          
+
+      - id: download_url
+        run: |
+          echo "url=https://github.com/${{ github.repository }}/releases/download/${GITHUB_REF_NAME}/${{steps.env.outputs.filename}}" >> $GITHUB_OUTPUT
+
       - name: Release
         uses: softprops/action-gh-release@v2
         if: github.ref_type == 'tag'
         with:
-          body: ${{steps.sha1.outputs.sha1}}
+          body: |
+            Resource-pack: [Download](${{steps.download_url.outputs.url}})
+            filename: `${{steps.env.outputs.filename}}`
+            sha1: `${{steps.sha1.outputs.sha1}}`
           files: dist/*
