@@ -9,6 +9,13 @@
           "type": "model",
           "model": "block/register"
         }
+      },
+      {
+        "when": "10key",
+        "model": {
+          "type": "model",
+          "model": "block/10key"
+        }
       }
     ],
     "fallback": {
