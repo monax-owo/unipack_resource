@@ -40,7 +40,8 @@ jobs:
         if: github.ref_type == 'tag'
         with:
           body: |
-            Resource-pack: [Download](${{steps.download_url.outputs.url}})
+            resource pack: [Download](${{steps.download_url.outputs.url}})
             filename: `${{steps.env.outputs.filename}}`
+            download link: `${{steps.download_url.outputs.url}}`
             sha1: `${{steps.sha1.outputs.sha1}}`
           files: dist/*
