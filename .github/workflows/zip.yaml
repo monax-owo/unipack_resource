@@ -6,7 +6,7 @@ on:
     tags: "v*.*.*"
 
 env:
-  prefix: unipack_resource
+  prefix: Unipack
 
 jobs:
   zip:
