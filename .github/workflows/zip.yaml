@@ -41,7 +41,9 @@ jobs:
         with:
           body: |
             resource pack: [Download](${{steps.download_url.outputs.url}})
-            filename: `${{steps.env.outputs.filename}}`
-            download link: `${{steps.download_url.outputs.url}}`
-            sha1: `${{steps.sha1.outputs.sha1}}`
+
+            ## `server.properties`
+            require-resource-pack: true
+            resource-pack: `${{steps.download_url.outputs.url}}`
+            resource-pack-sha1: `${{steps.sha1.outputs.sha1}}`
           files: dist/*
